@@ -1,0 +1,1681 @@
+/*!
+ * Neobeam Academic — Professional theme for research talks & teaching
+ *
+ * @theme neobeam-lgy
+ * @author Embracket / mikael-ros  (academic edition)
+ *
+ * @auto-scaling true
+ * @size 16:9 1280px 720px
+ * @size 4:3  960px  720px
+ *
+ * ── Design System ──────────────────────────────────────────────
+ *  Primary  #1B3A6B  deep navy       (authority, academia)
+ *  Accent   #2E7BB4  steel blue      (highlights, links)
+ *  Teal     #1A7F74                  (examples, tips)
+ *  Gold     #C8962A                  (warnings, emphasis)
+ *  Crimson  #A63228                  (alerts, errors)
+ *  Surface  #F5F7FA  cool white      (slide background)
+ *  Text     #1E2532  charcoal        (body copy)
+ * ───────────────────────────────────────────────────────────────
+ */
+
+/* ================================================================
+   0.  IMPORTS
+   ================================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Math&display=swap');
+@import "default";
+
+/* ================================================================
+   1.  DESIGN TOKENS
+   ================================================================ */
+:root {
+    --build-multiplier: 100;
+
+    /* ── Core palette ──────────────────────────────────────────── */
+    --primary:          #1B3A6B;
+    --primary-dark:     #152E56;
+    --primary-darkest:  #0E1F3A;
+    --accent:           #2E7BB4;
+    --accent-light:     #5BA3D0;
+    --accent-lighter:   #A8CDE8;
+    --accent-pale:      #E8F3FA;
+
+    --teal:             #1A7F74;
+    --teal-pale:        #E6F4F2;
+    --gold:             #C8962A;
+    --gold-pale:        #FBF4E4;
+    --crimson:          #A63228;
+    --crimson-pale:     #FDECEC;
+
+    /* ── Grays ─────────────────────────────────────────────────── */
+    --gray-900:  #1E2532;
+    --gray-800:  #2D3748;
+    --gray-700:  #3D4A5C;
+    --gray-600:  #536070;
+    --gray-500:  #6B7A8F;
+    --gray-400:  #8D9BAA;
+    --gray-300:  #BCC5D0;
+    --gray-200:  #D8DEE6;
+    --gray-100:  #EEF1F5;
+    --gray-50:   #F5F7FA;
+    --white:     #FFFFFF;
+
+    /* ── Semantic aliases (keep compatibility) ─────────────────── */
+    --text-color:                  var(--gray-900);
+    --text-color-lighter:          var(--gray-700);
+    --text-color-lightest:         var(--gray-500);
+    --text-color-negative:         var(--white);
+    --text-color-negative-lighter: var(--gray-50);
+    --text-color-negative-lightest:var(--gray-100);
+    --text-color-negative-darker:  var(--gray-300);
+
+    --lighter-primary:   var(--accent-light);
+    --darker-primary:    var(--primary-dark);
+    --darkest-primary:   var(--primary-darkest);
+
+    --highlight-color-one:   var(--accent);
+    --highlight-color-two:   var(--teal);
+    --highlight-color-three: var(--gold);
+
+    --background-color:  var(--white);
+
+    /* ── Legacy HSL helpers (kept for blockquote compat) ──────── */
+    --saturation-multiplier:   1;
+    --desaturation-multiplier: 1;
+    --brightness-multiplier:   1;
+    --darkness-multiplier:     2;
+    --color-shift-degrees:     30;
+
+    /* ── Typography ────────────────────────────────────────────── */
+    --default-font:   "Inter", "PingFang SC", "Hiragino Sans GB",
+                      "Microsoft YaHei", "Apple Color Emoji",
+                      "Segoe UI Emoji", sans-serif;
+    --monospace-font: "Roboto Mono", "Cascadia Code", "Fira Code",
+                      "Consolas", monospace;
+    --math-font:      "Noto Sans Math";
+
+    --font-size:         22px;
+    --font-size-small:   0.80rem;
+    --font-size-tiny:    0.66rem;
+    --font-size-caption: 0.72rem;
+
+    /* ── Layout ────────────────────────────────────────────────── */
+    --header-height:      2.6rem;
+    --footer-height:      1.45rem;
+    --top-margin:         calc(1.55 * var(--header-height));
+    --left-right-margin:  3.2rem;
+    --bottom-margin:      calc(2.1 * var(--footer-height));
+    --margin: var(--top-margin)
+              var(--left-right-margin)
+              var(--bottom-margin)
+              var(--left-right-margin);
+    --text-padding:  0.55em;
+    --image-width:   92%;
+
+    /* ── Shape ─────────────────────────────────────────────────── */
+    --radius-sm:  0.30rem;
+    --radius-md:  0.55rem;
+    --radius-lg:  0.90rem;
+
+    /* keep legacy names */
+    --border-radius-harder:  var(--radius-sm);
+    --border-radius-default: var(--radius-md);
+    --border-radius-softer:  var(--radius-lg);
+
+    --definition-height: 1.6em;
+
+    /* ── Elevation ─────────────────────────────────────────────── */
+    --shadow-sm: 0 1px 4px  rgba(27,58,107,.09);
+    --shadow-md: 0 3px 10px rgba(27,58,107,.13);
+    --shadow-lg: 0 6px 22px rgba(27,58,107,.18);
+
+    /* ── Apply globals ─────────────────────────────────────────── */
+    font-family: var(--default-font);
+    font-size:   var(--font-size);
+    line-height: 1.55;
+    color:       var(--text-color);
+}
+
+/* ================================================================
+   2.  RESET
+   ================================================================ */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ================================================================
+   3.  SLIDE BODY  (section)
+   ================================================================ */
+section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    padding: var(--margin);
+
+    /* Soft top-tint fade to clean white */
+    background-color: var(--background-color);
+    background-image: linear-gradient(
+        180deg,
+        var(--accent-pale) 0%,
+        var(--background-color) 10%
+    );
+}
+
+/* ── Density helpers ───────────────────────────────────────────── */
+section.dense   { font-size: calc(0.90 * var(--font-size)); line-height: 1.40; }
+section.denser  { font-size: calc(0.82 * var(--font-size)); line-height: 1.30; }
+section.densest { font-size: calc(0.75 * var(--font-size)); line-height: 1.18; }
+
+/* ================================================================
+   4.  TYPOGRAPHY  — Headings
+   ================================================================ */
+
+/* H1: slide title */
+/* section > h1 {
+    font-size: 1.62rem;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+    margin: 0 0 0.40em 0;
+    padding-bottom: 0.28em;
+    border-bottom: 2.5px solid var(--accent);
+    width: 100%;
+}
+ */
+/* 只对普通页面生效，排除特殊页 */
+section:not(.title):not(.section):not(.thanks):not(:has(header)) h1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2.7rem;
+  background-color: var(--primary);
+  color: white;
+  margin: 0;
+  padding: 0 1.8rem;
+  line-height: 2.7rem;
+  font-size: 1.45rem;
+  box-sizing: border-box;
+  border-radius: 0 0 var(--border-radius-default) var(--border-radius-default);
+}
+
+section:not(.title):not(.section):not(.thanks):not(:has(header)) {
+  padding-top: 3rem;
+}
+
+/* H2: subsection / subheading */
+section > h2 {
+    font-size: 1.22rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin: 0.50em 0 0.25em 0;
+    line-height: 1.3;
+}
+
+/* H3: topic label */
+section > h3 {
+    font-size: 1.04rem;
+    font-weight: 600;
+    color: var(--gray-700);
+    margin: 0.40em 0 0.18em 0;
+}
+
+/* H4–H6: minor headings / captions */
+section > h4,
+section > h5,
+section > h6 {
+    font-size: 0.90rem;
+    font-weight: 500;
+    color: var(--gray-500);
+    margin: 0.30em 0 0.12em 0;
+}
+
+/* ── Body text ─────────────────────────────────────────────────── */
+section > p {
+    margin: 0.28em 0;
+    line-height: 1.65;
+}
+
+strong { color: var(--primary);   font-weight: 700; }
+em     { color: var(--gray-700);  font-style: italic; }
+
+abbr {
+    color: var(--gray-500);
+    text-decoration-style: dotted;
+    text-decoration-color: var(--gray-300);
+    cursor: help;
+}
+var  { color: var(--accent); font-style: italic; }
+samp { color: var(--teal);   font-family: var(--monospace-font); }
+q    { font-weight: 300; font-style: italic; }
+
+/* ================================================================
+   5.  HEADER BAR
+   ================================================================ */
+section header {
+    --_height: var(--height, fit-content);
+    --_radius: var(--radius, var(--text-padding));
+
+    position: absolute;
+    left: 0;
+
+    height: var(--_height);
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    /* Hide overflowing text */
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    background-color: var(--primary);
+    color: var(--text-color-negative);
+}
+
+/* Headers */
+section header {
+    /* Position at top */
+    top: 0;
+    
+    /* Compensate for radius */
+    padding: max(0.5rem, var(--_radius));
+    --height: calc(var(--header-height) + .5*var(--_radius));
+    --radius: var(--border-radius-default);
+
+    font-weight: 600;
+    font-size: 1.25rem;
+
+    border-radius: 0 0 var(--_radius) var(--_radius);
+}
+
+/* Footers */
+footer {
+    /* Position at bottom */
+    bottom: 0;
+
+    --radius: calc(var(--height) / 2);
+    --radius-space: calc(.5 * var(--radius));
+    --height: var(--footer-height);
+    
+    font-size: 0.65rem;
+    font-weight: initial !important; /* Important seems necessary, unfortunately, to set the font-weight here */
+
+    /* Add left-hand side spacing for basic footer definitions */
+    text-indent: calc(var(--text-padding) + var(--radius-space));
+}
+
+/* ================================================================
+   6.  FOOTER BAR
+   ================================================================ */
+footer {
+    position: absolute;
+    bottom: 0;
+    left:   0;
+    width:  100%;
+    height: var(--footer-height);
+
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+
+    background: linear-gradient(
+        90deg,
+        var(--primary-darkest) 0%,
+        var(--primary)         60%,
+        var(--accent)          100%
+    );
+
+    color:     var(--accent-lighter);
+    font-size: var(--font-size-tiny);
+}
+
+/* Each footer cell */
+footer > * {
+    height:      100%;
+    line-height: var(--footer-height);
+    flex: 1;
+    padding:     0 var(--text-padding);
+    text-align:  center;
+    font-weight: 400;
+    background:  transparent;
+    color:       var(--accent-lighter);
+    text-indent: 0;
+    z-index: 2;
+}
+
+/* Left cell: author / institution */
+footer > *:nth-child(1) {
+    text-align:   left;
+    padding-left: var(--left-right-margin);
+    color:        var(--gray-300);
+    font-weight:  500;
+}
+
+/* Right cell: leave room for page number */
+footer > *:last-child {
+    text-align:   right;
+    padding-right: calc(var(--footer-height) * 2.8 + var(--text-padding));
+    color:         var(--accent-lighter);
+}
+
+/* ── Page number badge ─────────────────────────────────────────── */
+section::after {
+    content: attr(data-marpit-pagination) ' / '
+             attr(data-marpit-pagination-total);
+
+    position:   absolute;
+    bottom:     0;
+    right:      var(--text-padding);
+    height:     var(--footer-height);
+    min-width:  calc(var(--footer-height) * 2.6);
+    line-height:var(--footer-height);
+    text-align: center;
+    z-index:    3;
+    overflow:   hidden;
+    text-overflow: ellipsis;
+
+    color:       var(--white);
+    font-size:   var(--font-size-tiny);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+}
+
+/* ================================================================
+   7.  TITLE SLIDE   <!-- _class: title -->
+   ================================================================ */
+
+section.title {
+    display: flex;
+    gap: 1em;
+    
+    /* Position everything in middle */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0; /* Remove otherwise present padding */
+}
+
+section.title > * {
+    margin: 0;
+    font-weight: 500;
+}
+
+/* Title blob */
+section.title h1 {
+    width: 100%;
+    max-width: 100%;
+
+    padding: var(--text-padding) calc(2*var(--text-padding));
+
+    background-color: var(--primary);
+    color: var(--text-color-negative);
+    border-radius: var(--border-radius-default);
+}
+
+section.title blockquote {
+    all: unset; /* Unset any settings brought on by other blockquote styling */
+    color: var(--text-color-lightest);
+}
+
+/* Logo */
+section.title img[alt*="logo"] {
+    --offset: -5%;
+    --rotate: -45deg;
+
+    /* Position in lower right, by default */
+    position: absolute;
+    margin: 0;
+    right:  var(--offset);
+    bottom: 0;
+
+    width: 350px;
+    object-fit: contain;
+
+    /* Rotate it slightly */
+    transform: rotate(var(--rotate));
+    opacity: 0.5;
+}
+
+/* Logo left side */
+section.title img[alt~="logo-left"] {
+    /* Position in lower left */
+    right:  unset;
+    left: var(--offset);
+    --rotate: 45deg;
+}
+
+/* ── Inline logo (visible, for institution branding) ───────────── */
+section.title img[alt~="logo-inline"] {
+    position:   relative;
+    width:       auto;
+    height:      2.8rem;
+    opacity:     0.9;
+    transform:   none;
+    margin:      0 auto;
+    border-radius: var(--radius-sm);
+    box-shadow:   none;
+}
+
+/* ================================================================
+   8.  SECTION DIVIDER SLIDE   <!-- _class: section -->
+   ================================================================ */
+section.section {
+    display:        flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:    flex-start;
+    padding:        var(--margin);
+
+    background-color: var(--primary);
+    background-image: linear-gradient(
+        135deg,
+        var(--primary-darkest) 0%,
+        var(--primary)         55%,
+        var(--accent)          100%
+    );
+}
+
+/* Huge decorative chapter number */
+section.section::before {
+    content:  counter(section-counter, decimal-leading-zero);
+    position: absolute;
+    right:    var(--left-right-margin);
+    bottom:   calc(var(--bottom-margin) - 0.2em);
+    font-size:   7rem;
+    font-weight: 800;
+    line-height: 1;
+    color:       rgba(255,255,255,.06);
+    pointer-events: none;
+    user-select: none;
+}
+
+section.section h1 {
+    font-size:   2.20rem;
+    font-weight: 700;
+    color:       var(--white);
+    border-bottom: none;
+    padding-bottom: 0;
+    max-width:   78%;
+    line-height: 1.20;
+}
+
+/* Decorative accent bar under section h1 */
+section.section h1::after {
+    content: '';
+    display: block;
+    width:   3.5rem;
+    height:  3px;
+    margin-top: 0.45em;
+    background: var(--accent-light);
+    border-radius: 2px;
+}
+
+section.section h2 {
+    font-size:   1.02rem;
+    font-weight: 400;
+    color:       var(--accent-lighter);
+    margin-top:  0.55em;
+    background:  none;
+    border:      none;
+}
+
+/* ================================================================
+   9.  CONCLUSION / THANKS SLIDE   <!-- _class: thanks -->
+   ================================================================ */
+section.thanks {
+    display:        flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:    center;
+    text-align:     center;
+    padding:        0;
+
+    background-color: var(--primary-darkest);
+    background-image: radial-gradient(
+        ellipse at 50% 40%,
+        rgba(46,123,180,.45) 0%,
+        transparent 65%
+    );
+}
+
+section.thanks h1 {
+    font-size:   2.4rem;
+    font-weight: 300;
+    color:       var(--white);
+    border-bottom: 1.5px solid rgba(255,255,255,.20);
+    padding-bottom: 0.35em;
+    margin-bottom:  0.5em;
+    width:         auto;
+    letter-spacing: 0.03em;
+}
+
+section.thanks h2 {
+    font-size:   1.05rem;
+    font-weight: 400;
+    color:       var(--accent-lighter);
+    margin-top:  0.4em;
+    background:  none;
+    border:      none;
+}
+
+section.thanks p {
+    color:       rgba(255,255,255,.55);
+    font-size:   0.88rem;
+    max-width:   60%;
+    text-align:  center;
+    margin:      0.3em auto;
+}
+
+/* ================================================================
+   10.  LISTS
+   ================================================================ */
+ul, ol {
+    line-height: 1.80;
+    margin:      0.28em 0;
+    padding:     0 0 0 1.30em;
+}
+
+ul li::marker {
+    color:       var(--accent);
+    font-size:   0.85em;
+}
+
+ol li::marker {
+    color:       var(--accent);
+    font-weight: 700;
+    font-size:   0.90em;
+}
+
+/* Nested */
+ul ul, ol ol, ul ol, ol ul { margin: 0; }
+
+/* ── Checklist (- [x] / - [ ]) ─────────────────────────────────── */
+li input[type="checkbox"] {
+    accent-color: var(--accent);
+    margin-right: 0.35em;
+}
+
+/* ================================================================
+   11.  BLOCKQUOTES
+   ================================================================ */
+
+/* ── Regular quote ─────────────────────────────────────────────── */
+blockquote {
+    --_block-bg-color: var(--block-bg-color, var(--accent-pale));
+    --radius: var(--radius-md);
+
+    min-width: 40%;
+    width:     100%;
+    max-width: 100%;
+    padding:   var(--text-padding) calc(1.2 * var(--text-padding));
+    margin:    0.50em 0;
+
+    border-left:   4px solid var(--accent);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    background-color: var(--_block-bg-color);
+    color:         var(--gray-700);
+    font-style:    italic;
+}
+
+/* ── Definition / labeled block  (#### Title\n\n body) ─────────── */
+blockquote:has(> h4) {
+    display:        flex;
+    flex-direction: column;
+    padding:        0;
+    border:         none;
+    border-radius:  var(--radius-md);
+    overflow:       hidden;
+    box-shadow:     var(--shadow-sm);
+    font-style:     normal;
+
+    --block-fg-color: var(--highlight-color-one);
+    --block-bg-color: #EEF4FA;
+    color: var(--gray-700);
+}
+
+blockquote:has(> h4) > * {
+    margin:  0;
+    padding: var(--text-padding) calc(1.2 * var(--text-padding));
+}
+
+blockquote:has(> h4) h4 {
+    background-color: var(--block-fg-color);
+    color:       var(--white);
+    font-size:   0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border-radius:  0;
+}
+
+blockquote:has(> h4) p {
+    min-height:      var(--definition-height);
+    background-color: var(--block-bg-color);
+}
+
+blockquote:has(> h4):nth-of-type(2n) {
+    --block-fg-color: var(--teal);
+    --block-bg-color: var(--teal-pale);
+}
+
+blockquote:has(> h4):nth-of-type(3n) {
+    --block-fg-color: var(--gold);
+    --block-bg-color: var(--gold-pale);
+}
+
+/* ================================================================
+   12.  TABLES
+   ================================================================ */
+table {
+    border-collapse: collapse;
+    border-radius:   var(--radius-md);
+    overflow:        hidden;
+    box-shadow:      var(--shadow-sm);
+    width:           100%  !important;
+    min-width:       0;
+    max-width:       100%;
+    margin:          0.55em 0;
+    font-size:       0.88rem;
+    color:           var(--text-color);    
+}
+
+table th {
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    color:       var(--white);
+    font-weight: 600;
+    font-size:   0.82rem;
+    letter-spacing: 0.045em;
+    text-transform: uppercase;
+    text-align:  left;
+    padding:     0.48em 0.90em;
+    border:      none;
+    white-space: nowrap;
+}
+
+table th:first-child { border-radius: var(--radius-md) 0 0 0; }
+table th:last-child  { border-radius: 0 var(--radius-md) 0 0; }
+
+table td {
+    padding:      0.42em 0.90em;
+    border-bottom: 1px solid var(--gray-100);
+    color:         var(--gray-700);
+    vertical-align: middle;
+}
+
+table tr:last-child td { border-bottom: none; }
+
+table tr:nth-of-type(even) { background-color: var(--accent-pale); }
+table tr:nth-of-type(odd)  { background-color: var(--white); }
+
+table tr:hover { background-color: #D6EAF5 !important; }
+
+/* Full-width table helper */
+table.full { width: 100%  !important; }
+
+/* ================================================================
+   13.  CODE
+   ================================================================ */
+pre {
+    background:    var(--accent-pale);
+    color:         var(--accent);
+    border-left:   3px solid var(--accent);
+    border-radius: var(--radius-md);
+    padding:       var(--text-padding) calc(1.2 * var(--text-padding));
+    margin:        0.50em 0;
+    box-shadow:    var(--shadow-md);
+    overflow-x:    auto;
+    font-size:     0.80rem;
+    line-height:   1.62;
+    width:         100%;
+    min-width:     40%;
+    max-width:     100%;
+}
+
+pre, code, samp {
+    font-family: var(--monospace-font);
+    border: none;
+    line-height: unset;
+}
+
+/* Inline code */
+:not(pre) > code {
+    font-family:  var(--monospace-font);
+    background:   var(--accent-pale);
+    color:        var(--accent);
+    padding:      0.08em 0.42em;
+    border-radius: 0.30em;
+    font-size:    0.84em;
+    border:       1px solid var(--accent-lighter);
+}
+
+/* Highlighted text */
+mark {
+    background: var(--accent-pale);
+    color:      var(--accent);
+    padding:    0 0.25em;
+    border-radius: 0.25em;
+}
+
+/* ================================================================
+   14.  IMAGES  &  FIGURES
+   ================================================================ */
+
+img {
+    display:    block;
+    width:      fit-content;
+    max-width:  var(--image-width);
+    margin:     var(--text-padding) 0;
+    border-radius: var(--radius-md);
+    background: transparent !important;
+    box-shadow: var(--shadow-sm);
+}
+
+img[alt*="#left"],
+img[alt*="#right"] { margin: var(--text-padding); }
+img[alt*="#left"]  { float: left;  }
+img[alt*="#right"] { float: right; }
+img[alt*="#center"]{ 
+    margin: var(--text-padding) auto;
+    align-self: center;   /* ← 加这一行 */ 
+}
+img[alt*="#noborder"]{ box-shadow: none; border-radius: 0; }
+/* 🌟 修复1：解决 Flex 下居中失效的问题。让包裹居中图片的 <p> 标签整体居中 */
+section p:has(img[alt*="center"]) {
+    align-self: center;
+    text-align: center;
+}
+
+/* H6 immediately after img → figure caption */
+/* 🌟 修复2：解决 H6 匹配不到的问题。匹配"内部包含图片的 p 标签"紧邻的 h6 */
+section p:has(img) + h6,
+figure > figcaption {
+    color:       var(--gray-500); /* 恢复成灰色，或者你之前测试的 blue */
+    font-weight: 400;
+    font-size:   var(--font-size-caption);
+    font-style:  italic;
+    margin-top:  calc(-0.4 * var(--text-padding));
+    text-align:  center;
+    letter-spacing: 0.01em;
+    align-self:  center; /* 让 h6 自己也水平居中 */
+}
+
+/* H6 immediately after img → figure caption */
+/* section > img + h6,
+figure > figcaption {
+    color:       var(--gray-500);
+    font-weight: 400;
+    font-size:   var(--font-size-caption);
+    font-style:  italic;
+    margin-top:  calc(-0.4 * var(--text-padding));
+    text-align:  center;
+    letter-spacing: 0.01em;
+} */
+
+/* Captioned image container helper */
+.figure {
+    display:        flex;
+    flex-direction: column;
+    align-items:    center;
+    gap:            0.30em;
+    margin:         0.5em 0;
+}
+
+.figure img    { margin: 0; }
+.figure .caption {
+    font-size:  var(--font-size-caption);
+    color:      var(--gray-500);
+    font-style: italic;
+    text-align: center;
+}
+
+/* 修复 Marp 中 Emoji 被强制换行（覆盖全局 img block） */
+img.emoji {
+    display: inline-block !important; /* 恢复内联显示 */
+    margin: 0 0.2em !important;       /* 调整两边间距 */
+    width: 1em !important;            /* 尺寸跟文字高度一致 */
+    height: 1em !important;
+    box-shadow: none !important;      /* 去掉图片的阴影 */
+    vertical-align: -0.1em;           /* 让 emoji 和文字垂直居中对齐 */
+}
+
+
+/* ================================================================
+   15.  MATH  (KaTeX / MathJax)
+   ================================================================ */
+section .katex-display {
+    width:      100% !important;
+    text-align: center !important;
+    transform:  none !important;
+    max-width:  none !important;
+    overflow-x: auto;
+    margin:     0.85em 0 !important;
+}
+
+section .katex-display > .katex {
+    font-size:  1.08em !important;
+    transform:  none !important;
+}
+
+section .katex {
+    font-family: var(--math-font) !important;
+}
+
+/* Center block-math paragraphs */
+section p:has(mjx-container[display="true"]),
+section p:has(.katex-display) {
+    align-self: center;
+}
+
+/* Numbered equation helper */
+.eq-num {
+    display:         flex;
+    align-items:     center;
+    justify-content: space-between;
+    width:           100%;
+}
+
+.eq-num .eq-label {
+    color:      var(--gray-500);
+    font-size:  0.85em;
+    font-style: italic;
+    white-space: nowrap;
+    padding-left: 1em;
+}
+
+/* ================================================================
+   16.  COLUMNS  &  LAYOUT HELPERS
+   ================================================================ */
+.columns     { display:grid; grid-template-columns:1fr 1fr;         gap:1.20rem; width:100%; }
+.columns-7-3 { display:grid; grid-template-columns:7fr 3fr;         gap:1.20rem; width:100%; }
+.columns-6-4 { display:grid; grid-template-columns:6fr 4fr;         gap:1.20rem; width:100%; }
+.columns-5-5 { display:grid; grid-template-columns:1fr 1fr;         gap:1.20rem; width:100%; }
+.columns-4-6 { display:grid; grid-template-columns:4fr 6fr;         gap:1.20rem; width:100%; }
+.columns-3-7 { display:grid; grid-template-columns:3fr 7fr;         gap:1.20rem; width:100%; }
+.columns-3   { display:grid; grid-template-columns:repeat(3,1fr);   gap:1.10rem; width:100%; }
+.columns-4   { display:grid; grid-template-columns:repeat(4,1fr);   gap:1.00rem; width:100%; }
+
+/* Flex row */
+.row {
+    display:     flex;
+    align-items: center;
+    gap:         1.20rem;
+    width:       100%;
+}
+
+/* Vertical stretch: fill remaining height */
+.fill { flex: 1; }
+
+/* ── Spacing utilities ─────────────────────────────────────────── */
+.mt-1{margin-top:.30em !important;} .mt-2{margin-top:.65em !important;} .mt-3{margin-top:1.10em !important;}
+.mb-1{margin-bottom:.30em !important;} .mb-2{margin-bottom:.65em !important;} .mb-3{margin-bottom:1.10em !important;}
+.pt-1{padding-top:.30em !important;} .pt-2{padding-top:.65em !important;} .pt-3{padding-top:1.10em !important;}
+.pb-1{padding-bottom:.30em !important;} .pb-2{padding-bottom:.65em !important;} .pb-3{padding-bottom:1.10em !important;}
+.gap-1{gap:.30rem} .gap-2{gap:.65rem} .gap-3{gap:1.10rem}
+/* 紧凑行距 (适合文字特别多、公式较少的情况) */
+.lh-1  { line-height: 1.0 !important; }
+
+/* 标准/适中行距 (默认排版常用) */
+.lh-2 { line-height: 1.5 !important; }
+
+/* 宽松行距 (适合包含大量独立行公式 $$...$$ 的段落，防止公式上下挤压) */
+.lh-3  { line-height: 2.0 !important; }
+
+/* ── Alignment utilities ───────────────────────────────────────── */
+.center { text-align:center !important; }
+.left   { text-align:left  !important; }
+.right  { text-align:right !important; }
+
+/* Wide slide: reduced side-margins */
+section.wide {
+    padding-left:  calc(var(--left-right-margin) * 0.55);
+    padding-right: calc(var(--left-right-margin) * 0.55);
+}
+
+/* ================================================================
+   17.  SCIENTIFIC  CONTENT  BOXES
+   ================================================================
+   Usage (Marp HTML mode):
+       <div class="theorem">…</div>
+       <div class="proof">…</div>
+   Or with custom label:
+       <div class="theorem" data-label="Theorem 2.3 (Cauchy)">…</div>
+   ================================================================ */
+
+/* ================================================================
+   25. MINIFIED INFO BOXES (Left-border Style)
+   ================================================================ */
+/* 基础容器样式 */
+.box, .proof {
+    --box-color: var(--accent, #3B82F6);      /* 默认主色：蓝色 */
+    --box-bg:    var(--accent-pale, #EFF6FF); /* 默认背景：浅蓝 */
+    --box-title: none;                      /* 默认标题文字 */
+
+    background:  var(--box-bg);
+    border-left: 8px solid var(--box-color);
+    color:       var(--gray-800);
+    border-radius: var(--radius-sm);
+    padding:       0.52em 0.90em;
+    margin:        0.45em 0;
+    font-size:     0.91rem;
+    line-height:   1.62;
+    width:         100%;
+}
+
+/* 统一的标题样式 (大写、加粗、字间距) */
+.box::before {
+    content:        var(--box-title);
+    display:        block;
+    font-weight:    700;
+    font-size:      0.76rem;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color:          var(--box-color);
+    margin-bottom:  0.35em;
+}
+
+/* 允许在 HTML 中用 data-label 覆盖默认标题 */
+.box[data-label]::before { content: attr(data-label); }
+
+
+/* ── 常用的颜色/语义变体 (只改变颜色和默认标题) ───────────────── */
+
+/* 1. 蓝色 (Info / Note / Remark) */
+.box.info { 
+    --box-color: var(--accent, #3B82F6); 
+    --box-bg: var(--accent-pale, #EFF6FF); 
+    --box-title: "Note"; 
+}
+
+/* 2. 绿色 (Success / Tip / Definition) */
+.box.success { 
+    --box-color: #1E8449; 
+    --box-bg: #EAFAF1; 
+    --box-title: "Success"; 
+}
+
+/* 3. 黄橙色 (Warning / Warn) */
+.box.warn { 
+    --box-color: var(--gold, #D97706); 
+    --box-bg: var(--gold-pale, #FFFBEB); 
+    --box-title: "Warning"; 
+}
+
+/* 4. 红色 (Alert / Error / Important) */
+.box.alert { 
+    --box-color: var(--crimson, #DC2626); 
+    --box-bg: var(--crimson-pale, #FEF2F2); 
+    --box-title: "Important"; 
+}
+
+/* 5. 紫色 (Theorem / Highlight) - 适合定理和核心结论 */
+.box.theorem { 
+    --box-color: #6D28D9; 
+    --box-bg: #F5F3FF; 
+    --box-title: "Theorem"; 
+}
+
+/* ── 特殊排版：Proof (证明过程通常需要斜体和结尾的方块) ───────── */
+.proof {
+    --box-color: var(--gray-400);
+    --box-bg:    var(--gray-50);
+    border-left-width: 3px;
+    font-style:  italic;
+    position:    relative;
+}
+.proof::before {
+    content:     attr(data-label, "Proof") "."; /* 标题变成同行显示 */
+    display:     inline;
+    font-style:  normal;
+    margin-right:0.4em;
+    text-transform: none;
+    letter-spacing: normal;
+}
+.proof::after {
+    content:     "□"; /* QED 墓碑符号 */
+    position:    absolute;
+    right:       0.8em;
+    bottom:      0.4em;
+    font-style:  normal;
+}
+
+/* ── KEY FORMULA BOX ───────────────────────────────────────────── */
+.formula-box {
+    background:  #EEF4FA;
+    border:      1.5px solid var(--accent-lighter);
+    border-left: 4px solid var(--primary);
+    text-align:  center;
+    font-size:   1.02rem;
+    padding:     0.80em 1.10em;
+    margin:      0.65em 0;
+    box-shadow:  var(--shadow-sm);
+    width:      100%;
+}
+
+
+/* ── CITATION ──────────────────────────────────────────────────── */
+.cite {
+    background:    var(--gray-100);
+    border-left:   3px solid var(--gray-400);
+    font-size:     0.80rem;
+    color:         var(--gray-600);
+    font-style:    italic;
+    padding-left:  0.95em;
+}
+
+.cite::before {
+    content: "📄 ";
+    font-style: normal;
+}
+
+/* ================================================================
+   18.  REFERENCES SLIDE / SECTION
+   ================================================================ */
+section.references h1,
+section.references > h1 {
+    font-size:   1.25rem;
+    border-color: var(--gray-300);
+    color:        var(--gray-700);
+}
+
+section.references ol,
+.references-box ol {
+    font-size:   0.78rem;
+    line-height: 1.55;
+    color:       var(--gray-700);
+    padding-left: 1.20em;
+}
+
+section.references li,
+.references-box li {
+    margin-bottom: 0.38em;
+}
+
+section.references a,
+.references-box a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--accent-lighter);
+}
+
+/* ================================================================
+   19.  PROGRESS / OUTLINE  BAR  (optional decorative element)
+   ================================================================ */
+.progress-bar {
+    display: flex;
+    width:   100%;
+    height:  0.30rem;
+    gap:     0.18rem;
+    margin:  0.45em 0;
+}
+
+.progress-bar .step {
+    flex: 1;
+    height: 100%;
+    background:    var(--gray-200);
+    border-radius: 1px;
+}
+
+.progress-bar .step.done    { background: var(--accent); }
+.progress-bar .step.current { background: var(--primary); }
+
+/* ================================================================
+   20.  DARK SLIDE VARIANT   <!-- _class: dark -->
+   ================================================================ */
+section.dark {
+    background-color:  var(--primary-darkest);
+    background-image:  none;
+    color:             var(--gray-100);
+}
+
+section.dark h1 {
+    color:        var(--white);
+    border-color: var(--accent-light);
+}
+
+section.dark h2 { color: var(--accent-lighter); background:none; border:none; }
+section.dark h3 { color: var(--gray-300); }
+
+section.dark strong { color: var(--accent-lighter); }
+
+section.dark blockquote {
+    background:  rgba(255,255,255,.08);
+    border-color: var(--accent-light);
+    color:        var(--gray-100);
+}
+
+section.dark :not(pre) > code {
+    background: rgba(46,123,180,.25);
+    border-color: var(--accent);
+    color: var(--accent-lighter);
+}
+
+section.dark table th {
+    background: linear-gradient(90deg, var(--primary-darkest), var(--primary-dark));
+}
+
+section.dark table tr:nth-of-type(even) { background: rgba(255,255,255,.05); }
+section.dark table tr:nth-of-type(odd)  { background: rgba(255,255,255,.02); }
+section.dark table td { border-color: rgba(255,255,255,.08); color: var(--gray-200); }
+
+/* ================================================================
+   21.  LINKS
+   ================================================================ */
+a {
+    color:           var(--accent);
+    text-decoration: none;
+    border-bottom:   1px solid transparent;
+    transition:      border-color 0.15s ease;
+}
+
+a:hover { border-bottom-color: var(--accent); }
+
+/* ================================================================
+   22.  AUDIO
+   ================================================================ */
+audio { margin: var(--text-padding) 0; }
+
+/* ================================================================
+   23.  PRINT / EXPORT  tweaks
+   ================================================================ */
+@media print {
+    section {
+        background-image: none !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}
+
+/* ================================================================
+   24. BEAMER-STYLE BLOCKS (Single DIV & data-label)
+   ================================================================ */
+.beamer {
+    --bg-header: var(--primary);      /* 默认头部颜色 */
+    --bg-body:   var(--accent-pale);  /* 默认主体颜色 */
+    
+    display:       block;
+    border-radius: var(--radius-md);
+    box-shadow:    0 4px 12px rgba(0,0,0,0.15);
+    margin:        0.8em 0;
+    padding:       0.4em 0.8em;       /* 主体内容的内边距 */
+    background:    var(--bg-body);
+    color:         var(--gray-900);
+    overflow:      hidden;            /* 关键：截断顶部横幅的圆角 */
+    width:         100%;
+}
+
+/* 使用 ::before 伪元素生成顶部横幅 */
+.beamer::before {
+    content:       attr(data-label);  /* 读取 HTML 里的 data-label 属性 */
+    display:       block;
+    margin:        -0.4em -0.8em 0.4em -0.8em; /* 负边距拉伸到边缘，抵消父级的 padding */
+    padding:       0.25em 0.8em;      /* 标题的内边距 */
+    background:    var(--bg-header);
+    color:         var(--white);
+    font-size:     0.95rem;
+    font-weight:   bold;
+    letter-spacing:0.02em;
+    
+}
+
+/* 修复内部 Markdown 段落产生的多余空隙 */
+.beamer > p:first-child { margin-top: 0; }
+.beamer > p:last-child  { margin-bottom: 0; }
+
+/* ── 颜色命名变体 ────────────────────────────────────────────── */
+.beamer.blue  { --bg-header: #283593; --bg-body: #E8EAF6; }
+.beamer.red   { --bg-header: #B71C1C; --bg-body: #FFEBEE; }
+.beamer.green { --bg-header: #1B5E20; --bg-body: #E8F5E9; }
+
+/* ── 主题色变体 ──────────────────────────────────────────────── */
+.beamer.theme   { --bg-header: var(--primary); --bg-body: var(--accent-pale); }
+.beamer.warn    { --bg-header: var(--crimson); --bg-body: var(--crimson-pale); }
+.beamer.example { --bg-header: var(--teal);    --bg-body: var(--teal-pale); }
+
+/* ── 新增：深色系 ─────────────────────────────── */
+.beamer.navy   { --bg-header: #0D1B2A; --bg-body: #E3E8EF; } /* 深海军蓝 */
+.beamer.black  { --bg-header: #212121; --bg-body: #F5F5F5; } /* 炭黑 */
+.beamer.purple { --bg-header: #4A148C; --bg-body: #F3E5F5; } /* 深紫 */
+.beamer.brown  { --bg-header: #4E342E; --bg-body: #EFEBE9; } /* 深棕 */
+
+/* ── 新增：中性活泼色 ─────────────────────────── */
+.beamer.teal   { --bg-header: #00695C; --bg-body: #E0F2F1; } /* 青绿 */
+.beamer.cyan   { --bg-header: #00838F; --bg-body: #E0F7FA; } /* 青蓝 */
+.beamer.indigo { --bg-header: #283593; --bg-body: #E8EAF6; } /* 靛蓝 */
+.beamer.orange { --bg-header: #E65100; --bg-body: #FFF3E0; } /* 深橙 */
+.beamer.pink   { --bg-header: #880E4F; --bg-body: #FCE4EC; } /* 玫红 */
+
+/* ── 新增：高级莫兰迪色系 ─────────────────────── */
+.beamer.sage   { --bg-header: #4A5E52; --bg-body: #EDF2EE; } /* 鼠尾草绿 */
+.beamer.slate  { --bg-header: #37474F; --bg-body: #ECEFF1; } /* 石板灰 */
+.beamer.mauve  { --bg-header: #6D4C7D; --bg-body: #F3EEF7; } /* 藕紫 */
+.beamer.clay   { --bg-header: #7B4F3A; --bg-body: #F5EDEA; } /* 陶土 */
+.beamer.steel  { --bg-header: #2E4A6B; --bg-body: #EAF0F8; } /* 钢蓝 */
+
+/* 深紫（稳重、学术感强） */
+.beamer.purple { --bg-header: #4527A0; --bg-body: #EDE7F6; }
+
+/* 靛蓝（比蓝更高级一点） */
+.beamer.indigo { --bg-header: #303F9F; --bg-body: #E8EAF6; }
+
+/* 琥珀（比黄更稳） */
+.beamer.amber { --bg-header: #FF8F00; --bg-body: #FFF8E1; }
+
+
+/* 石墨灰（极简风） */
+.beamer.graphite { --bg-header: #263238; --bg-body: #F5F5F5; }
+
+/* 玫红（强调但不俗） */
+.beamer.rose { --bg-header: #AD1457; --bg-body: #FCE4EC; }
+
+/* 森林绿（比你原来的 green 更柔和） */
+.beamer.forest { --bg-header: #2E7D32; --bg-body: #E8F5E9; }
+
+
+
+/* ================================================================
+   25. SIMPLE COLOR BOXES (轻量级强调框)
+   ================================================================ */
+
+/* 消除 Markdown 内部段落产生的多余空隙 */
+.box > p:first-child { margin-top: 0; }
+.box > p:last-child  { margin-bottom: 0; }
+
+/* 学术灰蓝：适合前置假设 */
+.box.slate { --box-bg: #ECEFF1; --box-border: #607D8B; --box-text: #263238; }
+
+/* 皇家紫：适合推论/次要公式 */
+.box.purple{ --box-bg: #F3E5F5; --box-border: #9C27B0; --box-text: #4A148C; }
+
+/* 琥珀黄：适合注意/Tip */
+.box.amber { --box-bg: #FFF8E1; --box-border: #FFC107; --box-text: #E65100; }
+
+/* ================================================================
+   BOX - 科研 PPT 常用颜色扩展包
+   ================================================================ */
+
+/* ── 基础学术四色 ─────────────────────────────────────────────── */
+.box.blue   { --box-bg: #E8EAF6; --box-border: #3F51B5; --box-text: #1A237E; } /* 标准信息 */
+.box.red    { --box-bg: #FFEBEE; --box-border: #E53935; --box-text: #B71C1C; } /* 警告/错误 */
+.box.green  { --box-bg: #E8F5E9; --box-border: #4CAF50; --box-text: #1B5E20; } /* 成功/结论 */
+.box.yellow { --box-bg: #FFFDE7; --box-border: #F9A825; --box-text: #E65100; } /* 注意/提问 */
+
+/* ── 进阶冷色系 (适合理工科) ──────────────────────────────────── */
+.box.navy   { --box-bg: #E3EBF6; --box-border: #1A3A6B; --box-text: #0D2447; } /* 深海军蓝，适合定理 */
+.box.steel  { --box-bg: #E9EEF4; --box-border: #4A6FA5; --box-text: #1F3A5F; } /* 钢铁蓝，适合命题 */
+.box.slate  { --box-bg: #ECEFF1; --box-border: #607D8B; --box-text: #263238; } /* 蓝灰，适合假设/前提 */
+.box.cyan   { --box-bg: #E0F7FA; --box-border: #0097A7; --box-text: #006064; } /* 青色，适合方法论 */
+.box.teal   { --box-bg: #E0F2F1; --box-border: #00897B; --box-text: #004D40; } /* 青绿，适合定义 */
+
+/* ── 进阶暖色系 (适合强调和结论) ─────────────────────────────── */
+.box.crimson{ --box-bg: #FEF2F2; --box-border: #DC2626; --box-text: #7F1D1D; } /* 深红，适合核心警告 */
+.box.rose   { --box-bg: #FFF0F3; --box-border: #E11D74; --box-text: #880E4F; } /* 玫瑰红，适合拓展阅读 */
+.box.amber  { --box-bg: #FFF8E1; --box-border: #FFB300; --box-text: #E65100; } /* 琥珀，适合 Tip/注意 */
+.box.orange { --box-bg: #FBE9E7; --box-border: #E64A19; --box-text: #BF360C; } /* 深橙，适合实验数据 */
+
+/* ── 紫色系 (适合数学/理论) ───────────────────────────────────── */
+.box.purple { --box-bg: #F3E5F5; --box-border: #8E24AA; --box-text: #4A148C; } /* 紫色，适合推论/引理 */
+.box.violet { --box-bg: #EDE7F6; --box-border: #5E35B1; --box-text: #311B92; } /* 靛紫，适合核心定理 */
+.box.indigo { --box-bg: #E8EAF6; --box-border: #3949AB; --box-text: #1A237E; } /* 靛蓝，介于蓝紫之间 */
+
+/* ── 中性/经典系 (适合引用和补充说明) ────────────────────────── */
+.box.gray   { --box-bg: #F5F5F5; --box-border: #9E9E9E; --box-text: #424242; } /* 中性灰，适合 Remark */
+.box.mocha  { --box-bg: #EFEBE9; --box-border: #6D4C41; --box-text: #3E2723; } /* 摩卡棕，适合历史背景 */
+.box.olive  { --box-bg: #F9FBE7; --box-border: #827717; --box-text: #33691E; } /* 橄榄绿，适合算法/伪码 */
+
+/* ── 主题色系 (跟随 Neobeam 变量) ────────────────────────────── */
+.box.theme  { --box-bg: var(--accent-pale);   --box-border: var(--primary);  --box-text: inherit; }
+.box.accent { --box-bg: var(--accent-pale);   --box-border: var(--accent);   --box-text: inherit; }
+.box.warn   { --box-bg: var(--gold-pale);     --box-border: var(--gold);     --box-text: #5E3A00; }
+.box.alert  { --box-bg: var(--crimson-pale);  --box-border: var(--crimson);  --box-text: #5C1A18; }
+.box.tip    { --box-bg: var(--teal-pale);     --box-border: var(--teal);     --box-text: #004D40; }
+
+/* ================================================================
+   FIX: Full-width tables inside columns
+   ================================================================ */
+
+section table {
+    display: table;
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    table-layout: auto !important;
+    align-self: stretch !important;
+}
+
+section p:has(> table),
+section div:has(> table) {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    align-self: stretch !important;
+}
+
+.columns > *,
+.columns-7-3 > *,
+.columns-6-4 > *,
+.columns-5-5 > *,
+.columns-4-6 > *,
+.columns-3-7 > *,
+.columns-3 > *,
+.columns-4 > * {
+    width: 100%;
+    min-width: 0;
+}
+
+section table th,
+section table td {
+    white-space: normal !important;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+/* ================================================================
+   FIX: Center KaTeX/MathJax displayed formula with correct wrapper width
+   ================================================================ */
+
+/* 1) KaTeX display 外层（通常是 .katex-display 或其父 p） */
+section .katex-display,
+section .katex {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* 2) MathJax display 外层 mjx-container */
+section mjx-container[display="true"] {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+/* 3) 有些 theme 会用 p 包起来，确保 p 不用“内容宽度/居中策略”搞怪 */
+section p:has(.katex-display),
+section p:has(mjx-container[display="true"]) {
+  width: 100% !important;     /* 让 wrapper 跟随列宽 */
+  max-width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+/* 4) 如果你有针对 table/math 的 align-self: center/宽度规则，避免再次冲突 */
+section table,
+section p:has(.katex-display),
+section p:has(mjx-container[display="true"]) {
+  align-self: stretch !important;
+}
+
+/* ================================================================
+   THEME COLOR VARIANTS
+   Usage:
+     <!-- _class: green -->
+     <!-- _class: purple -->
+     <!-- _class: orange -->
+     <!-- _class: rose -->
+     <!-- _class: teal -->
+     <!-- _class: gray -->
+   Can combine with:
+     <!-- _class: section green -->
+     <!-- _class: dark purple -->
+   ================================================================ */
+
+/* Green theme */
+section.theme-green {
+  --primary:          #1B5E20;
+  --primary-dark:     #124116;
+  --primary-darkest:  #0B2E0F;
+
+  --accent:           #43A047;
+  --accent-light:     #66BB6A;
+  --accent-lighter:   #C8E6C9;
+  --accent-pale:      #E8F5E9;
+
+  --highlight-color-one: var(--accent);
+}
+
+/* Purple theme */
+section.theme-purple {
+  --primary:          #4527A0;
+  --primary-dark:     #311B92;
+  --primary-darkest:  #1A0F4F;
+
+  --accent:           #7E57C2;
+  --accent-light:     #9575CD;
+  --accent-lighter:   #D1C4E9;
+  --accent-pale:      #EDE7F6;
+
+  --highlight-color-one: var(--accent);
+}
+
+/* Orange theme */
+section.theme-orange {
+  --primary:          #E65100;
+  --primary-dark:     #BF360C;
+  --primary-darkest:  #7A2508;
+
+  --accent:           #FB8C00;
+  --accent-light:     #FFB74D;
+  --accent-lighter:   #FFE0B2;
+  --accent-pale:      #FFF3E0;
+
+  --highlight-color-one: var(--accent);
+}
+
+/* Rose theme */
+section.theme-rose {
+  --primary:          #880E4F;
+  --primary-dark:     #6A0B3D;
+  --primary-darkest:  #420726;
+
+  --accent:           #C2185B;
+  --accent-light:     #EC407A;
+  --accent-lighter:   #F8BBD0;
+  --accent-pale:      #FCE4EC;
+
+  --highlight-color-one: var(--accent);
+}
+
+/* Teal theme */
+section.theme-teal {
+  --primary:          #00695C;
+  --primary-dark:     #004D40;
+  --primary-darkest:  #00332B;
+
+  --accent:           #00897B;
+  --accent-light:     #4DB6AC;
+  --accent-lighter:   #B2DFDB;
+  --accent-pale:      #E0F2F1;
+
+  --highlight-color-one: var(--accent);
+}
+
+/* ================================================================
+   DEFAULT THEME COLOR RESET
+   Usage:
+     <!-- _class: theme-default -->
+     <!-- _class: section theme-default -->
+     <!-- _class: dark theme-default -->
+   ================================================================ */
+
+section.theme-default {
+  /* ── Core palette ──────────────────────────────────────────── */
+  --primary:          #1B3A6B;
+  --primary-dark:     #152E56;
+  --primary-darkest:  #0E1F3A;
+
+  --accent:           #2E7BB4;
+  --accent-light:     #5BA3D0;
+  --accent-lighter:   #A8CDE8;
+  --accent-pale:      #E8F3FA;
+
+  /* ── Extra semantic colors ─────────────────────────────────── */
+  --teal:             #1A7F74;
+  --teal-pale:        #E6F4F2;
+  --gold:             #C8962A;
+  --gold-pale:        #FBF4E4;
+  --crimson:          #A63228;
+  --crimson-pale:     #FDECEC;
+
+  /* ── Compatibility aliases ─────────────────────────────────── */
+  --lighter-primary:  var(--accent-light);
+  --darker-primary:   var(--primary-dark);
+  --darkest-primary:  var(--primary-darkest);
+
+  --highlight-color-one:   var(--accent);
+  --highlight-color-two:   var(--teal);
+  --highlight-color-three: var(--gold);
+
+  --background-color: var(--white);
+}
+
+/* ================================================================
+   SECTION THEME COLOR VARIANTS
+   For research talks, academic seminars, and technical presentations
+
+   Usage:
+     <!-- _class: section theme-slate -->
+     <!-- _class: section theme-cyan -->
+     <!-- _class: section theme-emerald -->
+     <!-- _class: section theme-indigo -->
+     <!-- _class: section theme-violet -->
+     <!-- _class: section theme-burgundy -->
+     <!-- _class: section theme-amber -->
+     <!-- _class: section theme-graphite -->
+   ================================================================ */
+
+
+/* 1. Slate Blue
+   稳重、通用、适合 introduction / background */
+section.theme-slate {
+  --primary:          #243B53;
+  --primary-dark:     #1B2D40;
+  --primary-darkest:  #102A43;
+
+  --accent:           #3E7CB1;
+  --accent-light:     #6BA5D7;
+  --accent-lighter:   #BFD7EA;
+  --accent-pale:      #EAF4FB;
+
+  --highlight-color-one: var(--accent);
+}
+
+
+/* 2. Scientific Cyan
+   清爽、理工、适合 methods / system design */
+section.theme-cyan {
+  --primary:          #164E63;
+  --primary-dark:     #0E3F50;
+  --primary-darkest:  #083344;
+
+  --accent:           #0891B2;
+  --accent-light:     #22B8CF;
+  --accent-lighter:   #A5F3FC;
+  --accent-pale:      #ECFEFF;
+
+  --highlight-color-one: var(--accent);
+}
+
+
+/* 3. Emerald Lab
+   生命科学、环境、可持续、实验结果 */
+section.theme-emerald {
+  --primary:          #14532D;
+  --primary-dark:     #0F3F23;
+  --primary-darkest:  #052E16;
+
+  --accent:           #10B981;
+  --accent-light:     #34D399;
+  --accent-lighter:   #A7F3D0;
+  --accent-pale:      #ECFDF5;
+
+  --highlight-color-one: var(--accent);
+}
+
+
+/* 4. Deep Indigo
+   AI、算法、理论、模型相关 section */
+section.theme-indigo {
+  --primary:          #312E81;
+  --primary-dark:     #262466;
+  --primary-darkest:  #1E1B4B;
+
+  --accent:           #6366F1;
+  --accent-light:     #818CF8;
+  --accent-lighter:   #C7D2FE;
+  --accent-pale:      #EEF2FF;
+
+  --highlight-color-one: var(--accent);
+}
+
+
+/* 5. Muted Violet
+   偏优雅，适合 discussion / analysis / interpretation */
+section.theme-violet {
+  --primary:          #4C1D95;
+  --primary-dark:     #3B1674;
+  --primary-darkest:  #2E1065;
+
+  --accent:           #8B5CF6;
+  --accent-light:     #A78BFA;
+  --accent-lighter:   #DDD6FE;
+  --accent-pale:      #F5F3FF;
+
+  --highlight-color-one: var(--accent);
+}
+
+
+/* 6. Academic Burgundy
+   严肃、有分量，适合 problem / challenge / limitation */
+section.theme-burgundy {
+  --primary:          #641E2E;
+  --primary-dark:     #4A1622;
+  --primary-darkest:  #2F0E16;
+
+  --accent:           #B23A48;
+  --accent-light:     #D45D6A;
+  --accent-lighter:   #F3B8BE;
+  --accent-pale:      #FDECEF;
+
+  --highlight-color-one: var(--accent);
+}
+
+
+/* 7. Warm Amber
+   适合 findings / takeaway / conclusion，但不会太刺眼 */
+section.theme-amber {
+  --primary:          #78350F;
+  --primary-dark:     #5F2A0C;
+  --primary-darkest:  #451A03;
+
+  --accent:           #D97706;
+  --accent-light:     #F59E0B;
+  --accent-lighter:   #FDE68A;
+  --accent-pale:      #FFFBEB;
+
+  --highlight-color-one: var(--accent);
+}
+
+
+/* 8. Graphite Tech
+   高级灰黑，适合 overview / architecture / engineering */
+section.theme-graphite {
+  --primary:          #263238;
+  --primary-dark:     #1E272C;
+  --primary-darkest:  #11181C;
+
+  --accent:           #78909C;
+  --accent-light:     #A7BBC4;
+  --accent-lighter:   #CFD8DC;
+  --accent-pale:      #ECEFF1;
+
+  --highlight-color-one: var(--accent);
+}
