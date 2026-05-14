@@ -1,0 +1,9 @@
+{
+    "markdown.marp.themes": [    
+        "./css/neobeam-lgy.css",
+    ],
+    "markdown.marp.html": "all",
+    "markdown.marp.exportType": "html",
+    "markdown.marp.mathTypesetting": "mathjax",
+    "python-envs.defaultEnvManager": "ms-python.python:conda"
+}
